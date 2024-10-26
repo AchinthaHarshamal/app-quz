@@ -1,7 +1,12 @@
+"use client";
 export default function Home() {
+  
+  const onButtonClick = () => {
+    console.log('Button Clicked')
+  }
   return (
     <div>
-      Hello
+      <button onClick={onButtonClick}>Click me</button>
     </div>
   )
 }
