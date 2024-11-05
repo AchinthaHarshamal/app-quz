@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Question } from "@/types/questions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Circle } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Circle } from "lucide-react";
 
 interface QuizCardProps {
   question: Question;
@@ -19,17 +19,19 @@ const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
   };
 
   return (
-    <Card className={cn("w-[0.5fr]", { "bg-green-500": isCorrect })}>
+    <Card className={cn("w-full", { "border-green-500": isCorrect })}>
       <CardHeader>
         <CardTitle>{question.problem}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div key={1} className="mb-4 grid grid-cols-[1fr] items-start pb-4 last:mb-0 last:pb-0">
+        <div key={1} className="flex flex-col w-full">
           {question.answers.map((answer, index) => (
             <Button
               key={index}
               variant="ghost"
-              className="w-full space-y-1 justify-start"
+              className={cn("w-full space-y-1 justify-start", {
+                "bg-green-500": isCorrect && index === question.correctAnswer,
+              })}
               onClick={() => handleAnswerClick(index)}
             >
               <Circle />
@@ -38,11 +40,6 @@ const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
           ))}
         </div>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">
-          <Check /> Mark all as read
-        </Button>
-      </CardFooter>
     </Card>
   );
 };
