@@ -2,12 +2,15 @@
 import uploadFile from "@/actions/uploadFile";
 import { useState } from "react";
 import QuizCard from "./components/quizCard";
-import { Question } from "@/types/questions";
 import { Button } from "@/components/ui/button";
+import { useQuestionStore } from "./store/useQuestionStore";
 
 export default function Home() {
-  const [result, setResult] = useState<Question[]>([]);
   const [fileName, setFileName] = useState("");
+  const { questions, setQuestions } = useQuestionStore((state) => ({
+    questions: state.questions,
+    setQuestions: state.setQuestions
+  }));
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -22,7 +25,7 @@ export default function Home() {
     if (result instanceof Error) {
       console.log(result.message);
     } else {
-      setResult(result);
+      setQuestions(result);
       console.log("File uploaded successfully");
     }
   };
@@ -46,7 +49,7 @@ export default function Home() {
 
       <section className="mx-auto px-4 w-full md:w-4/5">
         <div className="flex flex-col gap-2">
-          {result.map((question, index) => (
+          {questions.map((question, index) => (
             <div key={index}>
               <QuizCard question={question}></QuizCard>
             </div>

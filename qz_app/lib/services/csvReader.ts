@@ -1,5 +1,6 @@
 import { Question } from "@/types/questions";
 import { parse } from "csv-parse/sync";
+import { v4 as uuidv4 } from "uuid";
 
 class CSVReader {
   static async readFile(file: File): Promise<Array<Question>> {
@@ -17,6 +18,7 @@ class CSVReader {
     const updatedRecords = records.map((record: any) => {
       const { problem, correctAnswer, ...answers } = record;
       return {
+        id: uuidv4(),
         problem,
         correctAnswer: Number(correctAnswer),
         answers: Object.values(answers),
