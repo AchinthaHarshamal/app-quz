@@ -1,6 +1,11 @@
+export interface Answer {
+  id: string;
+  answer: string;
+}
+
 export interface Question {
   id: string;
   problem: string;
-  correctAnswer: number;
-  answers: string[]; 
+  correctAnswerID: string;
+  answers: Answer[];
 }

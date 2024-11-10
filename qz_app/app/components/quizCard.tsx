@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Question } from "@/types/questions";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Circle, CircleCheck } from "lucide-react";
 import EditDialog from "./editDialog";
 
@@ -13,8 +13,8 @@ interface QuizCardProps {
 const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
-  const handleAnswerClick = (index: number) => {
-    if (index === question.correctAnswer) {
+  const handleAnswerClick = (id: string) => {
+    if (id === question.correctAnswerID) {
       setIsCorrect(true);
     }
   };
@@ -23,21 +23,20 @@ const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
     <Card className={cn("w-full", { "border-green-500": isCorrect })}>
       <CardHeader>
         <CardTitle>{question.problem}</CardTitle>
-        <CardDescription>{question.id}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col w-full">
-          {question.answers.map((answer, index) => (
+          {question.answers.map((answerObj) => (
             <Button
-              key={index}
+              key={answerObj.id}
               variant="ghost"
               className={cn("w-full space-y-1 justify-start", {
-                "bg-green-500": isCorrect && index === question.correctAnswer,
+                "bg-green-500": isCorrect && answerObj.id === question.correctAnswerID,
               })}
-              onClick={() => handleAnswerClick(index)}
+              onClick={() => handleAnswerClick(answerObj.id)}
             >
-              {index === question.correctAnswer ? <CircleCheck /> : <Circle />}
-              {answer}
+              {answerObj.id === question.correctAnswerID ? <CircleCheck /> : <Circle />}
+              {answerObj.answer}
             </Button>
           ))}
         </div>
