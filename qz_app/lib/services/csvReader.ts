@@ -17,14 +17,15 @@ class CSVReader {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updatedRecords = records.map((record: any) => {
       const { problem, correctAnswer, ...answers } = record;
-      const answerEntries = Object.entries(answers).map(([key, answer]) => ({
-        id: key,
+      const answerEntries = Object.entries(answers).map(([, answer]) => ({
+        id: uuidv4(),
         answer,
       }));
+
       return {
         id: uuidv4(),
         problem,
-        correctAnswer: answerEntries[Number(correctAnswer)].id,
+        correctAnswerID: answerEntries[Number(correctAnswer)].id,
         answers: answerEntries,
       };
     });
