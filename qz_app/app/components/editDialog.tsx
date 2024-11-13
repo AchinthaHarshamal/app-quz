@@ -8,11 +8,10 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Question } from "@/types/questions";
 import { useQuestionStore } from "@/app/store/useQuestionStore";
-import { GripVertical, Trash2 } from "lucide-react";
+import { Pencil, GripVertical, Trash2 } from "lucide-react";
 
 interface EditDialogProps {
     question: Question;
