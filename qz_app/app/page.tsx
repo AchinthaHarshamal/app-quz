@@ -1,15 +1,20 @@
 "use client";
 import uploadFile from "@/actions/uploadFile";
 import { useState } from "react";
-import QuizCard from "./components/quizCard";
 import { Button } from "@/components/ui/button";
-import { useQuestionStore } from "./store/useQuestionStore";
+import { useQuestionStore, useQuizStore } from "./store/useQuestionStore";
+import EditableQuizComponent from "./components/EditableQuizComponent";
+import { Question } from "@/types/questions";
 
 export default function Home() {
   const [fileName, setFileName] = useState("");
   const { questions, setQuestions } = useQuestionStore((state) => ({
-    questions: state.questions,
+    questions: state.questions as Question[],
     setQuestions: state.setQuestions
+  }));
+  const { quiz, setQuiz } = useQuizStore((state) => ({
+    quiz: state.quiz,
+    setQuiz: state.setQuiz
   }));
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +30,10 @@ export default function Home() {
     if (result instanceof Error) {
       console.log(result.message);
     } else {
-      setQuestions(result);
+      setQuestions(result.questions);
+      setQuiz({
+        id: result.id, name: result.collectionName, questionIds: result.questions.map(q => q.id)
+      });
       console.log("File uploaded successfully");
     }
   };
@@ -47,15 +55,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto px-4 w-full md:w-4/5">
-        <div className="flex flex-col gap-2">
-          {questions.map((question, index) => (
-            <div key={index}>
-              <QuizCard question={question}></QuizCard>
-            </div>
-          ))}
-        </div>
-      </section>
+      {quiz && (
+        <section className="mx-auto px-4 w-full md:w-4/5">
+          <EditableQuizComponent collectionName={quiz.name} questions={questions} />
+        </section>
+      )}
     </div>
   );
 }

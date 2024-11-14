@@ -21,3 +21,26 @@ export const useQuestionStore = create<QuestionStore>((set) => ({
       questions: state.questions.map((q) => (q.id === updatedQuestion.id ? updatedQuestion : q)),
     })),
 }));
+
+interface Quiz {
+  id: string;
+  name: string;
+  questionIds: string[];
+}
+
+interface QuizStore {
+  quiz: Quiz | null;
+  setQuiz: (quiz: Quiz) => void;
+  clearQuiz: () => void;
+  updateQuiz: (updatedQuiz: Quiz) => void;
+}
+
+export const useQuizStore = create<QuizStore>((set) => ({
+  quiz: null,
+  setQuiz: (quiz) => set({ quiz }),
+  clearQuiz: () => set({ quiz: null }),
+  updateQuiz: (updatedQuiz) =>
+    set((state) => ({
+      quiz: state.quiz && state.quiz.id === updatedQuiz.id ? updatedQuiz : state.quiz,
+    })),
+}));

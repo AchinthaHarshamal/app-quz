@@ -9,3 +9,9 @@ export interface Question {
   correctAnswerID: string;
   answers: Answer[];
 }
+
+export interface Quiz {
+  id: string;
+  collectionName: string;
+  questions: Question[];
+}
