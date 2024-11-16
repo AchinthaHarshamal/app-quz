@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Question } from "../../types/questions";
+import { Question, Quiz } from "../../types/questions";
 
 interface QuestionStore {
   questions: Question[];
@@ -23,12 +23,6 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
     })),
   getQuestions: () => get().questions,
 }));
-
-interface Quiz {
-  id: string;
-  name: string;
-  questionIds: string[];
-}
 
 interface QuizStore {
   quiz: Quiz | null;

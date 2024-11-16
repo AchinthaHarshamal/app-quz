@@ -10,8 +10,14 @@ export interface Question {
   answers: Answer[];
 }
 
-export interface Quiz {
+export interface QuizWithQuestions {
   id: string;
   collectionName: string;
   questions: Question[];
+}
+
+export interface Quiz {
+  id: string;
+  name: string;
+  questionIds: string[];
 }

@@ -1,14 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import DBConnection from "../../lib/dbConfig";
-import Question from "@/models/QuestionModel";
+import Question_ from "@/models/QuestionModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const connection = await DBConnection.connect();
   
-  const newQuestion = new Question({
-    title: "What is MongoDB?",
-    body: "Can someone explain what MongoDB is and how it works?",
-    tags: ["database", "mongodb", "nosql"],
+  const newQuestion = new Question_({
+    id: "1123",
+    problem: "What is MongoDB?",
+    correctAnswerID: "1",
+    answers: [
+      { id: "1", answer: "A NoSQL database" },
+      { id: "2", answer: "A relational database" },
+      { id: "3", answer: "A programming language" },
+      { id: "4", answer: "A web framework" }
+    ]
   });
 
   // Save the question object to the database
