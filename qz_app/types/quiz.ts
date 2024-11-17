@@ -1,5 +1,5 @@
 export interface Quiz {
   id: string;
-  name: string;
+  topic: string;
   questionIds: string[];
 }

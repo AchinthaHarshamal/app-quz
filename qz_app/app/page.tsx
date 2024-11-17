@@ -32,7 +32,7 @@ export default function Home() {
     } else {
       setQuestions(result.questions);
       setQuiz({
-        id: result.id, name: result.topic, questionIds: result.questions.map(q => q.id)
+        id: result.id, topic: result.topic, questionIds: result.questions.map(q => q.id)
       });
       console.log("File uploaded successfully");
     }
@@ -57,7 +57,7 @@ export default function Home() {
 
       {quiz && (
         <section className="mx-auto px-4 w-full md:w-4/5">
-          <EditableQuizComponent collectionName={quiz.name} questions={questions} />
+          <EditableQuizComponent collectionName={quiz.topic} questions={questions} />
         </section>
       )}
     </div>
