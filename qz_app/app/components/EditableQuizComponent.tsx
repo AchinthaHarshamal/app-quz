@@ -18,7 +18,7 @@ const EditableQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectio
     const quiz = getQuiz();
     const questions = getQuestions();
     if (quiz) {
-      const response = await fetch("/api/quiz/save", {
+      const response = await fetch("/api/collection/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

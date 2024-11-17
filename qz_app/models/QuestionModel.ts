@@ -19,7 +19,7 @@ const QuestionSchema: Schema = new Schema({
   id: { type: String, required: true },
   question: { type: String, required: true },
   correctAnswerID: { type: String, required: true },
-  answers: { type: [AnswerSchema], required: true },
+  answers: { type: [AnswerSchema], required: true, _id: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

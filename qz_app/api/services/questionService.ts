@@ -7,3 +7,11 @@ export const saveQuestions = async (questions: Question[]) => {
   const newQuestions = await QuestionModel.insertMany(questions);
   return newQuestions;
 };
+
+export const findQuestionsByIds = async (ids: string[]): Promise<Question[]> => {
+  await DBConnection.connect();
+  const questions = await QuestionModel.find({ id: { $in: ids } })
+    .select("-_id id question correctAnswerID answers")
+    .lean();
+  return questions as unknown as Question[];
+};

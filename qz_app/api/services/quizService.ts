@@ -8,3 +8,9 @@ export const saveQuiz = async (quiz: Quiz) => {
   const newQuiz = await QuizModel.create(quiz);
   return newQuiz;
 };
+
+export const findQuizById = async (id: string) => {
+  await DBConnection.connect();
+  const quiz = await QuizModel.findOne({ id }).lean();
+  return quiz as unknown as Quiz;
+};
