@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Quiz, Question } from "@/types/questions";
+import { Question } from "@/types/question";
+import { Quiz } from "@/types/quiz";
 import DBConnection from "../../../lib/dbConfig";
 import QuestionModel from "../../../models/QuestionModel";
 import QuizModel from "../../../models/QuizModel";
@@ -12,7 +13,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await DBConnection.connect();
 
       await QuestionModel.insertMany(questions);
-      await QuizModel.create(quiz); // Save the quiz
+      await QuizModel.create(quiz);
+      
       res.status(200).json({ message: "Quiz saved successfully" });
     } catch (error) {
       console.error("Error saving quiz:", error);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Question } from "@/types/questions";
+import { Question } from "@/types/question";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +22,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
   return (
     <Card className={cn("w-full", { "border-green-500": isCorrect })}>
       <CardHeader>
-        <CardTitle>{question.problem}</CardTitle>
+        <CardTitle>{question.question}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col w-full">

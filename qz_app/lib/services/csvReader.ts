@@ -1,16 +1,9 @@
-import { Question } from "@/types/questions";
+import { Collection } from "@/types/collection";
 import { parse } from "csv-parse/sync";
 import { v4 as uuidv4 } from "uuid";
-
-interface QuestionCollection {
-  id: string;
-  collectionName: string;
-  questions: Question[];
-}
-
 class CSVReader {
  
-  static async readFile(file: File): Promise<QuestionCollection> {
+  static async getCollection(file: File): Promise<Collection> {
     const text = await file.text();
     const records = parse(text, {
       columns: true,
@@ -21,11 +14,11 @@ class CSVReader {
       relax_quotes: true,
     });
 
-    const collectionName = text.split("\n")[0].trim();
+    const collectionTopic = text.split("\n")[0].trim();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updatedRecords = records.map((record: any) => {
-      const { problem, correctAnswer, ...answers } = record;
+      const { question, correctAnswer, ...answers } = record;
       const answerEntries = Object.entries(answers).map(([, answer]) => ({
         id: uuidv4(),
         answer,
@@ -33,7 +26,7 @@ class CSVReader {
 
       return {
         id: uuidv4(),
-        problem,
+        question: question,
         correctAnswerID: answerEntries[Number(correctAnswer)].id,
         answers: answerEntries,
       };
@@ -41,7 +34,7 @@ class CSVReader {
 
     return {
       id : uuidv4(),
-      collectionName,
+      topic: collectionTopic,
       questions: updatedRecords,
     };
   }

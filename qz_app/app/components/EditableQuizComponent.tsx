@@ -1,6 +1,6 @@
 import { useState } from "react";
 import QuizCard from "./quizCard";
-import { Question } from "@/types/questions";
+import { Question } from "@/types/question";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore , useQuizStore } from "@/app/store/useQuestionStore";
 interface EditableQuizComponentProps {

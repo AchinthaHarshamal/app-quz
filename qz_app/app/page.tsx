@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore, useQuizStore } from "./store/useQuestionStore";
 import EditableQuizComponent from "./components/EditableQuizComponent";
-import { Question } from "@/types/questions";
+import { Question } from "@/types/question";
 
 export default function Home() {
   const [fileName, setFileName] = useState("");
@@ -32,7 +32,7 @@ export default function Home() {
     } else {
       setQuestions(result.questions);
       setQuiz({
-        id: result.id, name: result.collectionName, questionIds: result.questions.map(q => q.id)
+        id: result.id, name: result.topic, questionIds: result.questions.map(q => q.id)
       });
       console.log("File uploaded successfully");
     }

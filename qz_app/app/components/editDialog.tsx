@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Question } from "@/types/questions";
+import { Question } from "@/types/question";
 import { useQuestionStore } from "@/app/store/useQuestionStore";
 import { Pencil, GripVertical, Trash2 } from "lucide-react";
 
@@ -19,7 +19,7 @@ interface EditDialogProps {
 
 const EditDialog: React.FC<EditDialogProps> = ({ question }) => {
     const [dialogOpen , setDialogOpen] = useState(false);
-    const [editedQuestion, setEditedQuestion] = useState(question.problem);
+    const [editedQuestion, setEditedQuestion] = useState(question.question);
     const [editedAnswers, setEditedAnswers] = useState(question.answers);
     const updateQuestion = useQuestionStore((state) => state.updateQuestion);
 
@@ -27,7 +27,7 @@ const EditDialog: React.FC<EditDialogProps> = ({ question }) => {
         if (window.confirm("Are you sure you want to save the changes?")) {
             updateQuestion({
                 ...question,
-                problem: editedQuestion,
+                question: editedQuestion,
                 answers: editedAnswers.map((answerObj, index) => ({
                     ...answerObj,
                     answer: editedAnswers[index].answer,
@@ -39,14 +39,14 @@ const EditDialog: React.FC<EditDialogProps> = ({ question }) => {
 
     const handleDiscard = () => {
         if (window.confirm("Are you sure you want to discard the changes?")) {
-            setEditedQuestion(question.problem);
+            setEditedQuestion(question.question);
             setEditedAnswers(question.answers);
             setDialogOpen(false);
         }
     };
 
     const isSaveDisabled = 
-        editedQuestion === question.problem && 
+        editedQuestion === question.question && 
         editedAnswers.every((answer, index) => answer === question.answers[index]);
 
     return (

@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { Question, Quiz } from "../../types/questions";
+import { Question } from "@/types/question";
+import { Quiz} from "@/types/quiz";
 
 interface QuestionStore {
   questions: Question[];

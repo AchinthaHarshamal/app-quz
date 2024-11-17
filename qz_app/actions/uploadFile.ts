@@ -1,14 +1,14 @@
 "use server";
 import CSVReader from "@/lib/services/csvReader";
-import { QuizWithQuestions } from "@/types/questions";
+import { Collection } from "@/types/collection";
 
-async function uploadFile(data: FormData): Promise<QuizWithQuestions> {
+async function uploadFile(data: FormData): Promise<Collection> {
   const file: File | null = data.get("file") as unknown as File;
   if (!file) {
     throw new Error("No file provided");
   }
 
-  const result = await CSVReader.readFile(file);
+  const result: Collection = await CSVReader.getCollection(file);
   return result;
 }
 
