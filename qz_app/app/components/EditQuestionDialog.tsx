@@ -17,7 +17,7 @@ interface EditDialogProps {
     question: Question;
 }
 
-const EditDialog: React.FC<EditDialogProps> = ({ question }) => {
+const EditQuestionDialog: React.FC<EditDialogProps> = ({ question }) => {
     const [dialogOpen , setDialogOpen] = useState(false);
     const [editedQuestion, setEditedQuestion] = useState(question.question);
     const [editedAnswers, setEditedAnswers] = useState(question.answers);
@@ -94,4 +94,4 @@ const EditDialog: React.FC<EditDialogProps> = ({ question }) => {
     );
 };
 
-export default EditDialog;
+export default EditQuestionDialog;

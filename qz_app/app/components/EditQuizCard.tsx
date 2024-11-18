@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Circle, CircleCheck } from "lucide-react";
-import EditDialog from "./editDialog";
+import EditQuestionDialog from "./EditQuestionDialog";
 
 interface QuizCardProps {
   question: Question;
 }
 
-const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
+const QuizQuizCard: React.FC<QuizCardProps> = ({ question }) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   const handleAnswerClick = (id: string) => {
@@ -41,11 +41,11 @@ const QuizCard: React.FC<QuizCardProps> = ({ question }) => {
           ))}
         </div>
         <div className="flex w-full justify-end pt-1">
-          <EditDialog question={question} />
+          <EditQuestionDialog question={question} />
         </div>
       </CardContent>
     </Card>
   );
 };
 
-export default QuizCard;
+export default QuizQuizCard;

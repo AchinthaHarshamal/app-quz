@@ -3,7 +3,7 @@ import uploadFile from "@/actions/uploadFile";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore, useQuizStore } from "./store/useQuestionStore";
-import EditableQuizComponent from "./components/EditableQuizComponent";
+import EditQuizComponent from "./components/EditQuizComponent";
 import { Question } from "@/types/question";
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
 
       {quiz && (
         <section className="mx-auto px-4 w-full md:w-4/5">
-          <EditableQuizComponent collectionName={quiz.topic} questions={questions} />
+          <EditQuizComponent collectionName={quiz.topic} questions={questions} />
         </section>
       )}
     </div>

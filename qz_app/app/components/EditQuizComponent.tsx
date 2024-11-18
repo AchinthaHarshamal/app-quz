@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QuizCard from "./quizCard";
+import QuizQuizCard from "./EditQuizCard";
 import { Question } from "@/types/question";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore , useQuizStore } from "@/app/store/useQuestionStore";
@@ -8,7 +8,7 @@ interface EditableQuizComponentProps {
   questions: Question[];
 }
 
-const EditableQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionName, questions }) => {
+const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionName, questions }) => {
   const getQuestions = useQuestionStore((state) => state.getQuestions);
   const getQuiz = useQuizStore((state) => state.getQuiz);
 
@@ -37,7 +37,7 @@ const EditableQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectio
       <div className="flex flex-col gap-2">
         {questions.map((question, index) => (
           <div key={index}>
-            <QuizCard question={question}></QuizCard>
+            <QuizQuizCard question={question}></QuizQuizCard>
           </div>
         ))}
       </div>
@@ -46,4 +46,4 @@ const EditableQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectio
   );
 };
 
-export default EditableQuizComponent;
+export default EditQuizComponent;
