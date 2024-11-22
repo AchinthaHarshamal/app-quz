@@ -10,7 +10,7 @@ interface QuizCardProps {
   question: Question;
 }
 
-const QuizQuestionCard: React.FC<QuizCardProps> = ({ question }) => {
+const EditQuestionCard: React.FC<QuizCardProps> = ({ question }) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   const handleAnswerClick = (id: string) => {
@@ -48,4 +48,4 @@ const QuizQuestionCard: React.FC<QuizCardProps> = ({ question }) => {
   );
 };
 
-export default QuizQuestionCard;
+export default EditQuestionCard;

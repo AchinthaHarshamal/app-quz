@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QuizQuestionCard from "./EditQuestionCard";
+import EditQuestionCard from "./EditQuestionCard";
 import { Question } from "@/types/question";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore , useQuizStore } from "@/app/store/useQuestionStore";
@@ -37,7 +37,7 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
       <div className="flex flex-col gap-2">
         {questions.map((question, index) => (
           <div key={index}>
-            <QuizQuestionCard question={question}></QuizQuestionCard>
+            <EditQuestionCard question={question}></EditQuestionCard>
           </div>
         ))}
       </div>
