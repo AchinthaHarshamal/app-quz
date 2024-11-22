@@ -21,6 +21,7 @@ const EditQuestionDialog: React.FC<EditDialogProps> = ({ question }) => {
     const [dialogOpen , setDialogOpen] = useState(false);
     const [editedQuestion, setEditedQuestion] = useState(question.question);
     const [editedAnswers, setEditedAnswers] = useState(question.answers);
+    const [editedAnswerDescription, setEditedAnswerDescription] = useState(question.answerDescription || "");
     const updateQuestion = useQuestionStore((state) => state.updateQuestion);
 
     const handleSave = () => {
@@ -32,6 +33,7 @@ const EditQuestionDialog: React.FC<EditDialogProps> = ({ question }) => {
                     ...answerObj,
                     answer: editedAnswers[index].answer,
                 })),
+                answerDescription: editedAnswerDescription,
             });
             setDialogOpen(false);
         }
@@ -41,13 +43,15 @@ const EditQuestionDialog: React.FC<EditDialogProps> = ({ question }) => {
         if (window.confirm("Are you sure you want to discard the changes?")) {
             setEditedQuestion(question.question);
             setEditedAnswers(question.answers);
+            setEditedAnswerDescription(question.answerDescription || "");
             setDialogOpen(false);
         }
     };
 
     const isSaveDisabled = 
         editedQuestion === question.question && 
-        editedAnswers.every((answer, index) => answer === question.answers[index]);
+        editedAnswers.every((answer, index) => answer === question.answers[index]) &&
+        editedAnswerDescription === (question.answerDescription || "");
 
     return (
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -63,6 +67,12 @@ const EditQuestionDialog: React.FC<EditDialogProps> = ({ question }) => {
               id="problem"
               value={editedQuestion}
               onChange={(e) => setEditedQuestion(e.target.value)}
+              className="col-span-4"
+            />
+            <Input
+              id="answerDescription"
+              value={editedAnswerDescription}
+              onChange={(e) => setEditedAnswerDescription(e.target.value)}
               className="col-span-4"
             />
             {editedAnswers.map((answerObj, index) => (

@@ -29,7 +29,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
               key={answerObj.id}
               variant="ghost"
               className={cn("w-full space-y-1 justify-start", {
-                "border-green-500": isCorrect && answerObj.id === question.correctAnswerID,
+                "border border-green-500": isCorrect && answerObj.id === question.correctAnswerID,
               })}
               onClick={() => handleAnswerClick(answerObj.id)}
             >

@@ -40,6 +40,11 @@ const EditQuestionCard: React.FC<QuizCardProps> = ({ question }) => {
             </Button>
           ))}
         </div>
+        {question.answerDescription && (
+          <div className="pt-2">
+            <p>{question.answerDescription}</p>
+          </div>
+        )}
         <div className="flex w-full justify-end pt-1">
           <EditQuestionDialog question={question} />
         </div>
