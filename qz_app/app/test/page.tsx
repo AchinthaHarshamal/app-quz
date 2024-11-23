@@ -1,7 +1,7 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { MyPagination } from "@/app/components/pagination"; // Import MyPagination
+import { MyPagination } from "@/app/components/PaginationComponent";
 
 const TestComponent = () => {
     const [borderColor, setBorderColor] = useState("");
