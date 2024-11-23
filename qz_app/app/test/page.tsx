@@ -1,12 +1,16 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { MyPagination } from "@/app/components/pagination"; // Import MyPagination
 
 const TestComponent = () => {
     const [borderColor, setBorderColor] = useState("");
     const [hoverColor, setHoverColor] = useState("");   
     const [bgColor, setBgColor] = useState("");
     const [textColor, setTextColor] = useState("");
+    const [pageNumber, setPageNumber] = useState(1);
+    const totalCount = 100; // Example total count
+    const pageSize = 10; // Example page size
 
     const handleClick_1 = () => {
         setBorderColor("border-green-500");
@@ -64,6 +68,12 @@ const TestComponent = () => {
             >
                 Reset
             </Button>
+            <div>Current Page: {pageNumber}</div>
+            <MyPagination 
+                totalCount={totalCount} 
+                pageSize={pageSize} 
+                setPageNumber={setPageNumber} 
+            />
         </div>
     );
 };
