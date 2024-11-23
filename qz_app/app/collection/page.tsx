@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Collection } from "../../types/collection";
 import QuestionCard from "../components/QuestionCard";
 
-export default function QuizPage() {
+function QuizPageContent() {
   const [collection, setCollection] = useState<Collection | null>(null);
 
   const searchParams = useSearchParams();
@@ -40,5 +40,13 @@ export default function QuizPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function QuizPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuizPageContent />
+    </Suspense>
   );
 }
