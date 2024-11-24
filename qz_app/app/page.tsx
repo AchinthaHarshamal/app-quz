@@ -1,65 +1,47 @@
 "use client";
-import uploadFile from "@/actions/uploadFile";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useQuestionStore, useQuizStore } from "./store/useQuestionStore";
-import EditQuizComponent from "./components/EditQuizComponent";
-import { Question } from "@/types/question";
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+interface CustomCardProps {
+  readonly url: string;
+  readonly css: string;
+  readonly title: string;
+  readonly content: string;
+}
+
+function CustomCard({ url, css, title, content }: CustomCardProps) {
+  return (
+    <Link href={url}>
+      <Card className={`flex flex-col w-full sm:w-60 h-60 item-center justify-center shadow-lg ${css}`}>
+        <CardHeader className="items-center">
+          <CardTitle className="text-2xl">{title}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <p className="text-center">{content}</p>
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
 
 export default function Home() {
-  const [fileName, setFileName] = useState("");
-  const { questions, setQuestions } = useQuestionStore((state) => ({
-    questions: state.questions as Question[],
-    setQuestions: state.setQuestions
-  }));
-  const { quiz, setQuiz } = useQuizStore((state) => ({
-    quiz: state.quiz,
-    setQuiz: state.setQuiz
-  }));
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      setFileName(event.target.files[0].name);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const result = await uploadFile(formData);
-    if (result instanceof Error) {
-      console.log(result.message);
-    } else {
-      setQuestions(result.questions);
-      setQuiz({
-        id: result.id, topic: result.topic, questionIds: result.questions.map(q => q.id)
-      });
-      console.log("File uploaded successfully");
-    }
-  };
-
   return (
-    <div className="container relative mx-auto my-4 flex flex-col items-start gap-2">
-      <section className="mx-auto px-4 w-full md:w-2/3 lg:w-1/2">
-        <div className="rounded-lg border bg-background shadow p-4 flex flex-col gap-2 items-center">
-          <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2 align">
-            <input type="file" name="file" id="fileInput" className="hidden" onChange={handleFileChange} />
-            <label htmlFor="fileInput" className="w-full cursor-pointer bg-blue-500 text-white py-2 px-4 rounded">
-              Browse file
-            </label>
-            {fileName && <p className="text-gray-500 mt-2">{fileName}</p>}
-            {fileName && <Button type="submit" value="Upload" className="">
-              Upload
-            </Button>}
-          </form>
-        </div>
-      </section>
-
-      {quiz && (
-        <section className="mx-auto px-4 w-full md:w-4/5">
-          <EditQuizComponent collectionName={quiz.topic} questions={questions} />
-        </section>
-      )}
+    <div className="container relative mx-auto flex flex-col items-center justify-center min-h-screen gap-2">
+      <h1 className="text-2xl text-center sm:text-4xl py-6">Welcome to the Quiz App</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 px-2 gap-4">
+        <CustomCard
+          url="/new/upload-csv"
+          css="shadow-blue-500/50"
+          title="Upload new Quiz"
+          content="Upload your quiz data as CSV"
+        />
+        <CustomCard
+          url="/quiz"
+          css="shadow-green-500/50"
+          title="View Quizzes"
+          content="See all quizzes"
+        />
+      </div>
     </div>
   );
 }

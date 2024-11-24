@@ -19,10 +19,6 @@ function QuizPageContent() {
     }
   }, [id]);
 
-  if (!collection) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="container relative mx-auto my-4 flex gap-2">
       <div className="flex-1">
@@ -32,9 +28,9 @@ function QuizPageContent() {
         </div>
       </div>
       <div className="flex-[4]">
-        <h1 className="text-2xl font-bold m-4">{collection.topic}</h1>
+        <h1 className="text-2xl font-bold m-4">{collection?.topic}</h1>
         <div className="flex flex-col gap-2">
-          {collection.questions.map((question) => (
+          {collection?.questions.map((question) => (
             <QuestionCard key={question.id} question={question} />
           ))}
         </div>
