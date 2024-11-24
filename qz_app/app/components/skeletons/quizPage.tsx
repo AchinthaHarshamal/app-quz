@@ -28,3 +28,15 @@ export function QuizPageSkeleton() {
     </div>
   );
 }
+
+export function QuizListSkeleton() {
+  return (
+    <div className="container relative mx-auto my-4 flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <QuizCardSkeleton key={index} />
+        ))}
+      </div>
+    </div>
+  );
+}
