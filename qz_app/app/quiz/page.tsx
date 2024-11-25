@@ -18,7 +18,7 @@ export default function AllQuizzes() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const pageSize = 8;
+  const pageSize = 5;
 
   useEffect(() => {
     const loadQuizzes = async () => {

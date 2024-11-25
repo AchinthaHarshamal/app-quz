@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { House } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "MyQ",
@@ -17,6 +20,13 @@ export default function RootLayout({
       <body>
         {children}
         <SpeedInsights />
+        <div className="fixed bottom-2 left-2">
+          <Link href="/">
+            <Button variant="secondary">
+              <House />
+            </Button>
+          </Link>
+        </div>
       </body>
     </html>
   )

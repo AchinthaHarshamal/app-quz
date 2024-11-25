@@ -20,16 +20,10 @@ function QuizPageContent() {
   }, [id]);
 
   return (
-    <div className="container relative mx-auto my-4 flex gap-2">
-      <div className="flex-1">
-        <div className="p-4 m-2 bg-white shadow-md">
-          <h2 className="text-xl font-bold">Question Title</h2>
-          <p>Question content goes here...</p>
-        </div>
-      </div>
-      <div className="flex-[4]">
+    <div className="w-full relative  my-4 flex gap-2">
+      <div className="flex flex-col w-full md:w-2/3 mx-auto">
         <h1 className="text-2xl font-bold m-4">{collection?.topic}</h1>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col mx-2 gap-2">
           {collection?.questions.map((question) => (
             <QuestionCard key={question.id} question={question} />
           ))}
