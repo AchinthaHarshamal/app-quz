@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "MyQ",
-  description: "MyQ is personal app for Education",
+  title: "Quiz My Brain",
+  description: '"Quiz My Brain", is a quiz app that allows you to create and take quizzes.',
 };
 
 export default function RootLayout({
