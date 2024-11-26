@@ -2,7 +2,7 @@ import { getQuizzes } from "@/api/services/quizService";
 import { QuizPage } from "@/types/quiz";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const getQuizPage = async (page: number, pageSize: number): Promise<QuizPage> => {
+const getQuizPage = async (page: number, pageSize: number): Promise<QuizPage> => {
   return (await getQuizzes(page, pageSize)) as unknown as QuizPage;
 };
 

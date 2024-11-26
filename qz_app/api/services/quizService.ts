@@ -24,3 +24,8 @@ export const getQuizzes = async (page: number, pageSize: number) => {
   const total = await QuizModel.countDocuments();
   return { quizzes, total, page, pageSize };
 };
+
+export const deleteQuizById = async (id: string) => {
+  await DBConnection.connect();
+  return QuizModel.deleteOne({ id });
+};

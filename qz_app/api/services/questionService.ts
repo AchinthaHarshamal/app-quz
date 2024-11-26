@@ -15,3 +15,8 @@ export const findQuestionsByIds = async (ids: string[]): Promise<Question[]> => 
     .lean();
   return questions as unknown as Question[];
 };
+
+export const deleteQuestionsByIds = async (questionIds: string[]) => {
+  await DBConnection.connect();
+  return QuestionModel.deleteMany({ id: { $in: questionIds } });
+};

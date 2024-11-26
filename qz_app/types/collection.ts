@@ -5,3 +5,8 @@ export interface Collection {
   topic: string;
   questions: Question[];
 }
+
+export interface DeleteCollectionRequest {
+  quizId: string;
+  questionIds: string[];
+}
