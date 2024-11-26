@@ -56,7 +56,7 @@ export default function UploadCSV() {
       </section>
 
       {quiz && (
-        <section className="mx-auto px-4 w-full md:w-4/5">
+        <section className="mx-auto px-4 sm:my-8 w-full md:w-4/5">
           <EditQuizComponent collectionName={quiz.topic} questions={questions} />
         </section>
       )}

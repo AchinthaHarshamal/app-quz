@@ -8,6 +8,9 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Quiz My Brain",
   description: '"Quiz My Brain", is a quiz app that allows you to create and take quizzes.',
+  icons: {
+    icon: "/favicon.ico",
+  }
 };
 
 export default function RootLayout({

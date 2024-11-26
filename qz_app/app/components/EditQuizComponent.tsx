@@ -33,7 +33,7 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-xl font-bold">{collectionName}</h2>
+      <h2 className="text-xl font-bold capitalize py-4">{collectionName}</h2>
       <div className="flex flex-col gap-2">
         {questions.map((question, index) => (
           <div key={index}>
