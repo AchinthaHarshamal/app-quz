@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Question } from "@/types/question";
-import { Quiz} from "@/types/quiz";
+import { Quiz } from "@/types/quiz";
 
 interface QuestionStore {
   questions: Question[];
@@ -26,20 +26,20 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
 }));
 
 interface QuizStore {
-  quiz: Quiz | null;
+  quiz: Quiz;
   setQuiz: (quiz: Quiz) => void;
   clearQuiz: () => void;
   updateQuiz: (updatedQuiz: Quiz) => void;
-  getQuiz: () => Quiz | null;
+  getQuiz: () => Quiz;
 }
 
 export const useQuizStore = create<QuizStore>((set, get) => ({
-  quiz: null,
+  quiz: {} as Quiz,
   setQuiz: (quiz) => set({ quiz }),
-  clearQuiz: () => set({ quiz: null }),
+  clearQuiz: () => set({ quiz: {} as Quiz }),
   updateQuiz: (updatedQuiz) =>
     set((state) => ({
       quiz: state.quiz && state.quiz.id === updatedQuiz.id ? updatedQuiz : state.quiz,
     })),
-  getQuiz: () => get().quiz
+  getQuiz: () => get().quiz,
 }));
