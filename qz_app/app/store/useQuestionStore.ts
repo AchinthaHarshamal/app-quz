@@ -10,6 +10,7 @@ interface QuestionStore {
   updateQuestion: (updatedQuestion: Question) => void;
   setQuestions: (questions: Question[]) => void;
   getQuestions: () => Question[];
+  reset: () => void;
 }
 
 export const useQuestionStore = create<QuestionStore>((set, get) => ({
@@ -23,6 +24,7 @@ export const useQuestionStore = create<QuestionStore>((set, get) => ({
       questions: state.questions.map((q) => (q.id === updatedQuestion.id ? updatedQuestion : q)),
     })),
   getQuestions: () => get().questions,
+  reset: () => set({ questions: [] }),
 }));
 
 interface QuizStore {
@@ -31,6 +33,7 @@ interface QuizStore {
   clearQuiz: () => void;
   updateQuiz: (updatedQuiz: Quiz) => void;
   getQuiz: () => Quiz;
+  reset: () => void;
 }
 
 export const useQuizStore = create<QuizStore>((set, get) => ({
@@ -42,4 +45,5 @@ export const useQuizStore = create<QuizStore>((set, get) => ({
       quiz: state.quiz && state.quiz.id === updatedQuiz.id ? updatedQuiz : state.quiz,
     })),
   getQuiz: () => get().quiz,
+  reset: () => set({ quiz: {} as Quiz }),
 }));

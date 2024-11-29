@@ -33,6 +33,8 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
       });
       if (response.ok) {
         router.push(`/collection?id=${quiz.id}`);
+        useQuestionStore.getState().reset();
+        useQuizStore.getState().reset();
       }
     }
   };
