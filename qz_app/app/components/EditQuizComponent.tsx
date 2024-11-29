@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useQuestionStore, useQuizStore } from "@/app/store/useQuestionStore";
 import EditTitleDialog from "./EditTitleDialog";
 import { Loader2 } from "lucide-react";
+import NewQuestionDialog from "./NewQuestionDialog";
 
 interface EditableQuizComponentProps {
   collectionName: string;
@@ -51,7 +52,9 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
             <EditQuestionCard question={question}></EditQuestionCard>
           </div>
         ))}
+        <NewQuestionDialog />
       </div>
+
       <Button onClick={handleSave} disabled={isSaving}>
         {isSaving ? (
           <>
