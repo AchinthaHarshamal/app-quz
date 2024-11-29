@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useQuestionStore, useQuizStore } from "@/app/store/useQuestionStore";
-import { Plus, X } from "lucide-react"; // Add this import
+import { Plus, X } from "lucide-react";
 import { Answer } from "@/types/question";
+
+const MAX_ANSWERS = 4;
 
 const NewQuestionDialog: React.FC = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -61,8 +63,8 @@ const NewQuestionDialog: React.FC = () => {
   };
 
   const handleAddAnswer = () => {
-    if (newAnswers.length >= 4) {
-      alert("You can only add up to 4 answers.");
+    if (newAnswers.length >= MAX_ANSWERS) {
+      alert(`You can only add up to ${MAX_ANSWERS} answers.`);
       return;
     }
     if (newAnswers[newAnswers.length - 1].answer.trim() !== "") {
@@ -116,10 +118,15 @@ const NewQuestionDialog: React.FC = () => {
                 }}
                 className={`text-wrap ${correctAnswerId === answerObj.id ? "bg-emerald-200 text-emerald-600" : ""}`}
               />
-              <X className="ml-2 cursor-pointer" onClick={() => handleRemoveAnswer(answerObj.id)} />
+              <X className="ml-2 text-red-500 cursor-pointer" onClick={() => handleRemoveAnswer(answerObj.id)} />
             </div>
           ))}
-          <Button type="button" onClick={handleAddAnswer} className="col-span-4">
+          <Button
+            type="button"
+            onClick={handleAddAnswer}
+            className="col-span-4"
+            disabled={newAnswers.length >= MAX_ANSWERS}
+          >
             Add Answer
           </Button>
           <div className="mt-4 pb-5 p-2 col-span-4">
