@@ -5,6 +5,7 @@ import { Question } from "@/types/question";
 import { Button } from "@/components/ui/button";
 import { useQuestionStore, useQuizStore } from "@/app/store/useQuestionStore";
 import EditTitleDialog from "./EditTitleDialog";
+import { Loader2 } from "lucide-react";
 
 interface EditableQuizComponentProps {
   collectionName: string;
@@ -15,10 +16,11 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
   const getQuestions = useQuestionStore((state) => state.getQuestions);
   const getQuiz = useQuizStore((state) => state.getQuiz);
 
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const router = useRouter();
 
   const handleSave = async () => {
+    setIsSaving(true);
     const quiz = getQuiz();
     const questions = getQuestions();
     if (quiz) {
@@ -30,14 +32,13 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
         body: JSON.stringify({ quiz, questions }),
       });
       if (response.ok) {
-        setIsSaved(true);
         router.push(`/collection?id=${quiz.id}`);
       }
     }
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`flex flex-col gap-2 ${isSaving ? "pointer-events-none opacity-50" : ""}`}>
       <div className="flex justify-between items-center py-4">
         <h2 className="text-xl font-bold capitalize">{collectionName}</h2>
         <EditTitleDialog title={collectionName} />
@@ -49,8 +50,14 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
           </div>
         ))}
       </div>
-      <Button onClick={handleSave} disabled={isSaved}>
-        Save Quiz
+      <Button onClick={handleSave} disabled={isSaving}>
+        {isSaving ? (
+          <>
+            <Loader2 className="animate-spin" /> Saving...
+          </>
+        ) : (
+          "Save Quiz"
+        )}
       </Button>
     </div>
   );
