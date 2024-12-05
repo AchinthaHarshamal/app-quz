@@ -1,9 +1,9 @@
-import NextAuth from 'next-auth';
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from 'bcryptjs';
-import DBConnection from '../../../lib/dbConfig';
-import User from '../../../models/UserModel';
+import bcrypt from "bcryptjs";
+import DBConnection from "../../../lib/dbConfig";
+import User from "../../../models/UserModel";
 
 export default NextAuth({
   providers: [
@@ -12,44 +12,48 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        // Validate credentials
+        console.log("I am here");
+
         const user = await User.findOne({ username: credentials.username });
-        if (user && await bcrypt.compare(credentials.password, user.password)) {
+        console.log("I am in the auth");
+
+        if (user && (await bcrypt.compare(credentials.password, user.password))) {
+          console.log("Authorize result: ", user);
           return Promise.resolve(user);
         } else {
+          console.log("Authorize result: null");
           return Promise.resolve(null);
         }
-      }
-    })
+      },
+    }),
   ],
-  // ...existing code...
+
   callbacks: {
     async signIn(user, account, profile) {
       await saveUserToDB(user);
+      console.log("i am in", user, account, profile);
       return true;
     },
     async jwt(token, user) {
       if (user) {
         token.id = user.id;
-        await saveUserToDB(user); // Save user details for Google login
+        await saveUserToDB(user);
       }
       return token;
     },
     async session(session, token) {
       session.user.id = token.id;
       return session;
-    }
+    },
   },
-  // ...existing code...
 });
 
-// Save user to the database
 async function saveUserToDB(user) {
   await DBConnection.connect();
   const existingUser = await User.findOne({ email: user.email });
@@ -57,8 +61,8 @@ async function saveUserToDB(user) {
     const newUser = new User({
       name: user.name,
       email: user.email,
-      password: user.password || null, // Password might not be available for Google login
-      createdAt: new Date()
+      password: user.password || null,
+      createdAt: new Date(),
     });
     await newUser.save();
   }
