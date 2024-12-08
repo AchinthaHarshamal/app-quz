@@ -18,37 +18,38 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        console.log("I am here");
-
-        const user = await User.findOne({ username: credentials.username });
-        console.log("I am in the auth");
-
+        await DBConnection.connect();
+        const user = await User.findOne({ email: credentials.email });
         if (user && (await bcrypt.compare(credentials.password, user.password))) {
-          console.log("Authorize result: ", user);
-          return Promise.resolve(user);
+          return { id: user._id, email: user.email };
         } else {
-          console.log("Authorize result: null");
-          return Promise.resolve(null);
+          return null;
         }
       },
     }),
   ],
 
   callbacks: {
-    async signIn(user, account, profile) {
-      await saveUserToDB(user);
-      console.log("i am in", user, account, profile);
-      return true;
+    async signIn({ user, account }) {
+      if (account.type === "oauth") {
+        await saveUserToDB(user);
+      } else if (account.type === "credentials") {
+        return true;
+      }
+      return false;
     },
-    async jwt(token, user) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
-        await saveUserToDB(user);
+        token.email = user.email;
+        token.provider = account.provider;
       }
       return token;
     },
-    async session(session, token) {
+    async session({ session, token }) {
       session.user.id = token.id;
+      session.user.email = token.email;
+      session.user.provider = token.provider;
       return session;
     },
   },
@@ -59,9 +60,8 @@ async function saveUserToDB(user) {
   const existingUser = await User.findOne({ email: user.email });
   if (!existingUser) {
     const newUser = new User({
-      name: user.name,
       email: user.email,
-      password: user.password || null,
+      password: user.password || "",
       createdAt: new Date(),
     });
     await newUser.save();
