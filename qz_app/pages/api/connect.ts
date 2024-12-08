@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import DBConnection from "../../lib/dbConfig";
-import Question_ from "@/models/QuestionModel";
+//import Question_ from "@/models/QuestionModel";
 import User from "@/models/UserModel";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
