@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { saveCollection } from "@/api/controllers/collectionController";
+import { saveCollection } from "@/controllers/collectionController";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

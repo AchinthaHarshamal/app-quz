@@ -1,4 +1,4 @@
-import { getQuizzes } from "@/api/services/quizService";
+import { getQuizzes } from "@/services/quizService";
 import { QuizPage } from "@/types/quiz";
 import { NextApiRequest, NextApiResponse } from "next";
 

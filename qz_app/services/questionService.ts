@@ -1,5 +1,5 @@
 import { Question } from "@/types/question";
-import QuestionModel from "../../models/QuestionModel";
+import QuestionModel from "../models/QuestionModel";
 import DBConnection from "@/lib/dbConfig";
 
 export const saveQuestions = async (questions: Question[]) => {

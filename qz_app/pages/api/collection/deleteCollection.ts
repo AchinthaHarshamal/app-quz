@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { deleteCollectionByQuizId } from "@/api/controllers/collectionController";
+import { deleteCollectionByQuizId } from "@/controllers/collectionController";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "DELETE") {

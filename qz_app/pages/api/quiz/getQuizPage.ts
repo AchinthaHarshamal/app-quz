@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { handleGetQuizPage } from "@/api/controllers/quizController";
+import { handleGetQuizPage } from "@/controllers/quizController";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
