@@ -32,7 +32,8 @@ export default NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account.type === "oauth") {
-        await saveUserToDB(user);
+        const savedUser = await saveUserToDB(user);
+        return !!savedUser;
       } else if (account.type === "credentials") {
         return true;
       }
@@ -65,5 +66,7 @@ async function saveUserToDB(user) {
       createdAt: new Date(),
     });
     await newUser.save();
+    return newUser;
   }
+  return existingUser; 
 }
