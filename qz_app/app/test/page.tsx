@@ -1,9 +1,11 @@
 'use client';
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MyPagination } from "@/app/components/PaginationComponent";
+import { useSession } from "next-auth/react";
 
 const TestComponent = () => {
+    const { data: session } = useSession();
     const [borderColor, setBorderColor] = useState("");
     const [hoverColor, setHoverColor] = useState("");   
     const [bgColor, setBgColor] = useState("");
@@ -11,6 +13,10 @@ const TestComponent = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const totalCount = 100; // Example total count
     const pageSize = 10; // Example page size
+
+    useEffect(() => {
+        console.log(session);
+    }, [session]);
 
     const handleClick_1 = () => {
         setBorderColor("border-green-500");
@@ -37,6 +43,7 @@ const TestComponent = () => {
 
     return (
         <div className="flex flex-col gap-4 m-4">
+            <h1>Session Data: {JSON.stringify(session)}</h1>
             <h1>Test Component</h1>
             <p>This is a test component.</p>
             <Button 
