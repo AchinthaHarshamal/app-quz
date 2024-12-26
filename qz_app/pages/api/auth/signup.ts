@@ -8,10 +8,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { email, password } = req.body;
+  const { email, password, userName, role = "user" } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+  if (!email || !password || !userName) {
+    return res.status(400).json({ message: "Email, password, and username are required" });
   }
 
   await DBConnection.connect();
@@ -27,6 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     email: email,
     password: hashedPassword,
     createdAt: new Date(),
+    userName: userName,
+    role: role,
   });
 
   try {
