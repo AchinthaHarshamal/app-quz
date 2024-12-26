@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { signIn } from "next-auth/react";
 import { GalleryVerticalEnd } from "lucide-react";
-import React from "react";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -96,7 +96,7 @@ const SignInPage = () => {
                             <FormItem>
                               <FormLabel>Password</FormLabel>
                               <FormControl>
-                                <Input placeholder="Password" {...field} />
+                                <PasswordInput placeholder="Password" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -109,7 +109,7 @@ const SignInPage = () => {
                     </div>
                     <div className="text-center text-sm">
                       Don&apos;t have an account?{" "}
-                      <a href="/" className="underline underline-offset-4">
+                      <a href="/auth/signup" className="underline underline-offset-4">
                         Sign up
                       </a>
                     </div>
