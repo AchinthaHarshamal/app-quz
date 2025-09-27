@@ -1,5 +1,5 @@
 "use client";
-import { useQuestionStore, useQuizStore } from "../../store/useQuestionStore";
+import { useQuizStore } from "../../store/useQuestionStore";
 import EditQuizComponent from "../../components/EditQuizComponent";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
