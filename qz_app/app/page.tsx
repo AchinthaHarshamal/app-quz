@@ -28,12 +28,18 @@ export default function Home() {
   return (
     <div className="container relative mx-auto flex flex-col items-center justify-center min-h-screen gap-2">
       <h1 className="text-2xl text-center sm:text-4xl py-6">Welcome to the &quot;Quiz My Brain&quot;</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 px-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 px-2 gap-4">
         <HomeMenuCard url="/quiz" css="shadow-green-500/50" title="View Quizzes" content="See all quizzes" />
+        <HomeMenuCard
+          url="/new/create"
+          css="shadow-purple-500/50"
+          title="Create Quiz"
+          content="Create a new quiz from scratch"
+        />
         <HomeMenuCard
           url="/new/upload-csv"
           css="shadow-blue-500/50"
-          title="Upload new Quiz"
+          title="Upload Quiz"
           content="Upload your quiz data as CSV"
         />
       </div>

@@ -6,16 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useQuestionStore, useQuizStore } from "@/app/store/useQuestionStore";
 import EditableQuizInfoCard from "./EditableQuizInfoCard";
 import { Loader2, Plus, X } from "lucide-react";
-import NewQuestionDialog from "./NewQuestionDialog";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { v4 as uuidv4 } from "uuid";
 
 interface EditableQuizComponentProps {
   collectionName: string;
-  questions: Question[];
 }
 
 interface NewQuestionDialogWrapperProps {
@@ -177,7 +175,7 @@ const NewQuestionDialogWrapper: React.FC<NewQuestionDialogWrapperProps> = ({ onB
   );
 };
 
-const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionName, questions }) => {
+const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionName }) => {
   const getQuestions = useQuestionStore((state) => state.getQuestions);
   const getQuiz = useQuizStore((state) => state.getQuiz);
   const addQuestion = useQuestionStore((state) => state.addQuestion);
@@ -265,7 +263,7 @@ const EditQuizComponent: React.FC<EditableQuizComponentProps> = ({ collectionNam
       <EditableQuizInfoCard title={collectionName} description={quiz?.description} />
       
       <div className="flex flex-col gap-2">
-        {currentQuestions.map((question, index) => (
+        {currentQuestions.map((question) => (
           <div key={question.id}>
             <EditQuestionCard question={question}></EditQuestionCard>
           </div>
