@@ -1,6 +1,7 @@
 export interface Quiz {
   id: string;
   topic: string;
+  description?: string;
   questionIds: string[];
 }
 
