@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { updateQuiz, deleteQuizById } from "@/services/quizService";
+import { findQuizById, updateQuiz, deleteQuizById } from "@/services/quizService";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { quizId } = req.query;
@@ -8,7 +8,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ message: "Quiz ID is required" });
   }
 
-  if (req.method === "PATCH") {
+  if (req.method === "GET") {
+    try {
+      const quiz = await findQuizById(quizId);
+      if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+      }
+      res.status(200).json(quiz);
+    } catch (error) {
+      console.error("Error fetching quiz:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: "Failed to get quiz", error: error.message });
+      } else {
+        res.status(500).json({ message: "Failed to get quiz", error: "An unknown error occurred" });
+      }
+    }
+  } else if (req.method === "PATCH") {
     try {
       const updates = req.body;
       const updatedQuiz = await updateQuiz(quizId, updates);

@@ -80,7 +80,7 @@ export default function QuizViewPage() {
             {error || "The quiz you&apos;re looking for doesn&apos;t exist or you don&apos;t have permission to view it."}
           </p>
           <Link href="/my-dashboard">
-            <Button className="btn-primary">Back to Dashboard</Button>
+            <Button className="bg-orange hover:bg-orange/90 text-white font-semibold">Back to Dashboard</Button>
           </Link>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function QuizViewPage() {
       </div>
 
       {/* Quiz Info */}
-      <Card className="card-modern mb-6">
+      <Card className="bg-white border border-light-gray shadow-lg mb-6">
         <CardContent className="pt-6">
           <div className="flex items-center gap-6 text-sm text-secondary">
             <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ export default function QuizViewPage() {
             </div>
             {quiz.rating !== undefined && (
               <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 fill-[#CAF0F8] text-[#CAF0F8]" />
+                <Star className="w-4 h-4 fill-orange text-orange" />
                 <span className="font-medium">{quiz.rating.toFixed(1)} rating</span>
               </div>
             )}
@@ -162,7 +162,7 @@ export default function QuizViewPage() {
         <h2 className="text-2xl font-semibold text-primary mb-4">Questions Preview</h2>
         
         {questions.length === 0 ? (
-          <Card className="card-modern">
+          <Card className="bg-white border border-light-gray shadow-lg">
             <CardContent className="pt-6 text-center">
               <BookOpen className="w-16 h-16 text-secondary mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-primary mb-2">No questions yet</h3>
@@ -170,14 +170,14 @@ export default function QuizViewPage() {
                 This quiz doesn&apos;t have any questions yet.
               </p>
               <Link href={`/quiz/${quiz.id}/edit`}>
-                <Button className="btn-primary">Add Questions</Button>
+                <Button className="bg-orange hover:bg-orange/90 text-white font-semibold">Add Questions</Button>
               </Link>
             </CardContent>
           </Card>
         ) : (
           <div className="space-y-4">
             {questions.map((question, index) => (
-              <Card key={question.id} className="card-modern">
+              <Card key={question.id} className="bg-white border border-light-gray shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-lg">
                     Question {index + 1}
@@ -227,7 +227,7 @@ export default function QuizViewPage() {
       {/* Actions */}
       <div className="flex gap-3">
         <Link href={`/quiz/${quiz.id}/edit`} className="flex-1">
-          <Button className="btn-primary w-full flex items-center gap-2">
+          <Button className="bg-orange hover:bg-orange/90 text-white font-semibold w-full flex items-center gap-2">
             <Edit className="w-4 h-4" />
             Edit Quiz
           </Button>

@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { saveQuiz } from "@/services/quizService";
+import { addQuizToCollection } from "@/services/collectionService";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       // Validate required fields
-      const { topic, authorId } = req.body;
+      const { topic, authorId, collectionId } = req.body;
       
       if (!topic || !authorId) {
         return res.status(400).json({ 
@@ -28,6 +29,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       const quiz = await saveQuiz(req.body);
+      
+      // If quiz has a collectionId, add it to the collection
+      if (collectionId && collectionId !== "none") {
+        try {
+          await addQuizToCollection(collectionId, quiz.id);
+        } catch (collectionError) {
+          console.error("Error adding quiz to collection:", collectionError);
+          // Don't fail the quiz creation if collection update fails
+        }
+      }
+      
       res.status(201).json({ quiz });
     } catch (error) {
       console.error("Error creating quiz:", error);

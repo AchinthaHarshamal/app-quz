@@ -203,6 +203,33 @@ export default function CreateQuizPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Validation functions for each step
+  const validateStep1 = () => {
+    return formData.title.trim().length >= 3;
+  };
+
+  const validateStep2 = () => {
+    if (questions.length === 0) return false;
+    
+    return questions.every(question => {
+      // Check if question text is filled
+      if (!question.text.trim()) return false;
+      
+      // Check if at least one correct answer is selected
+      if (question.correctAnswerIds.length === 0) return false;
+      
+      // Check if all answers are filled
+      const emptyAnswers = question.answers.filter(a => !a.text.trim());
+      if (emptyAnswers.length > 0) return false;
+      
+      return true;
+    });
+  };
+
+  const validateStep3 = () => {
+    return validateStep1() && validateStep2();
+  };
+
   const handleSubmit = async () => {
     if (!validateForm()) {
       setCurrentStep(1); // Go back to first step if validation fails
@@ -461,7 +488,7 @@ export default function CreateQuizPage() {
             <div className="flex gap-3 pt-4">
               <Button
                 onClick={() => setCurrentStep(2)}
-                disabled={!formData.title.trim()}
+                disabled={!validateStep1()}
                 className="btn-primary flex-1"
               >
                 Next: Add Questions
@@ -634,7 +661,7 @@ export default function CreateQuizPage() {
             </Button>
             <Button
               onClick={() => setCurrentStep(3)}
-              disabled={questions.length === 0}
+              disabled={!validateStep2()}
               className="btn-primary flex-1"
             >
               Next: Review Quiz
@@ -709,7 +736,7 @@ export default function CreateQuizPage() {
             </Button>
             <Button
               onClick={handleSubmit}
-              disabled={isLoading}
+              disabled={isLoading || !validateStep3()}
               className="btn-primary flex-1 flex items-center gap-2"
             >
               {isLoading ? (
