@@ -50,7 +50,11 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			// Custom Colors
+  			orange: 'hsl(var(--orange))',
+  			'dark-blue': 'hsl(var(--dark-blue))',
+  			'light-gray': 'hsl(var(--light-gray))' // Now #6b7280 - more readable
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

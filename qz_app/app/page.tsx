@@ -17,18 +17,18 @@ interface SearchResult {
 function QuizCard({ quiz }: { quiz: Quiz }) {
   return (
     <Link href={`/quiz/${quiz.id}`}>
-      <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+      <Card className="hover:shadow-lg transition-shadow cursor-pointer border-light-gray hover:border-orange">
         <CardHeader>
-          <CardTitle className="text-lg">{quiz.topic}</CardTitle>
+          <CardTitle className="text-lg text-dark-blue">{quiz.topic}</CardTitle>
           {quiz.description && (
-            <p className="text-sm text-gray-600 line-clamp-2">{quiz.description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">{quiz.description}</p>
           )}
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 text-sm text-gray-500">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
             {quiz.rating !== undefined && (
               <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                <Star className="w-4 h-4 fill-orange text-orange" />
                 <span>{quiz.rating.toFixed(1)}</span>
               </div>
             )}
@@ -61,7 +61,7 @@ export default function Home() {
   useEffect(() => {
     const loadRecommendedQuizzes = async () => {
       try {
-        const response = await fetch("/api/quiz/recommendations?limit=6");
+        const response = await fetch("/api/quiz/recommendations?limit=3");
         const data = await response.json();
         setRecommendedQuizzes(data.quizzes || []);
       } catch (error) {
@@ -103,28 +103,28 @@ export default function Home() {
   };
 
   return (
-    <div className="container relative mx-auto flex flex-col items-center justify-center min-h-screen gap-6 px-4">
+    <div className="container relative mx-auto flex flex-col items-center justify-center h-screen gap-4 px-4 bg-gradient-to-br from-white to-gray-50">
       <div className="text-center">
-        <h1 className="text-3xl sm:text-5xl font-bold py-6">Welcome to &quot;Quiz My Brain&quot;</h1>
-        <p className="text-lg text-gray-600 mb-8">Discover, create, and share amazing quizzes</p>
+        <h1 className="text-2xl sm:text-4xl font-bold py-2 text-dark-blue">Welcome to &quot;Quiz My Brain&quot;</h1>
+        <p className="text-base text-muted-foreground mb-4">Discover, create, and share amazing quizzes</p>
       </div>
 
       {/* Search Section */}
-      <div className="w-full max-w-2xl space-y-4">
+      <div className="w-full max-w-2xl space-y-3">
         <form onSubmit={handleSearch} className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
             <Input
               type="text"
               placeholder="Search quizzes by keywords..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="pl-10 border-light-gray focus:border-orange focus:ring-orange"
             />
           </div>
-          <Button type="submit" disabled={isSearching || !searchQuery.trim()}>
-            {isSearching ? "Searching..." : "Search"}
-          </Button>
+            <Button type="submit" disabled={isSearching || !searchQuery.trim()} className="bg-orange hover:bg-orange/80 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
+              {isSearching ? "Searching..." : "Search"}
+            </Button>
         </form>
 
         <form onSubmit={handleQuizIdSubmit} className="flex gap-2">
@@ -133,33 +133,34 @@ export default function Home() {
             placeholder="Enter Quiz ID to go directly..."
             value={quizIdInput}
             onChange={(e) => setQuizIdInput(e.target.value)}
+            className="border-light-gray focus:border-orange focus:ring-orange"
           />
-          <Button type="submit" disabled={!quizIdInput.trim()}>
-            Go to Quiz
-          </Button>
+            <Button type="submit" disabled={!quizIdInput.trim()} className="bg-dark-blue hover:bg-dark-blue/80 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200">
+              Go to Quiz
+            </Button>
         </form>
       </div>
 
       {/* Search Results */}
       {showSearchResults && searchResults && (
         <div className="w-full max-w-4xl">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-semibold">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-semibold text-dark-blue">
               Search Results ({searchResults.total} found)
             </h2>
-            <Button variant="outline" onClick={clearSearch}>
-              Clear Search
-            </Button>
+              <Button variant="outline" onClick={clearSearch} className="border-orange text-orange hover:bg-orange hover:text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200">
+                Clear Search
+              </Button>
           </div>
           {searchResults.quizzes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {searchResults.quizzes.map((quiz) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-64 overflow-y-auto">
+              {searchResults.quizzes.slice(0, 6).map((quiz) => (
                 <QuizCard key={quiz.id} quiz={quiz} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No quizzes found matching your search.</p>
+            <div className="text-center py-4">
+              <p className="text-muted-foreground">No quizzes found matching your search.</p>
             </div>
           )}
         </div>
@@ -168,8 +169,8 @@ export default function Home() {
       {/* Recommended Quizzes */}
       {!showSearchResults && recommendedQuizzes.length > 0 && (
         <div className="w-full max-w-4xl">
-          <h2 className="text-2xl font-semibold mb-4">Recommended Quizzes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 className="text-xl font-semibold mb-3 text-dark-blue">Recommended Quizzes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {recommendedQuizzes.map((quiz) => (
               <QuizCard key={quiz.id} quiz={quiz} />
             ))}

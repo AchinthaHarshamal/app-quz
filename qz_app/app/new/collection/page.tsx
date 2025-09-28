@@ -131,7 +131,7 @@ export default function CreateCollectionPage() {
           <h1 className="text-3xl font-bold text-primary mb-4">Create Collection</h1>
           <p className="text-secondary mb-6">Please sign in to create a collection.</p>
           <Link href="/auth/login">
-            <Button className="btn-primary">Sign In</Button>
+            <Button className="bg-orange hover:bg-orange/90 text-white font-semibold">Sign In</Button>
           </Link>
         </div>
       </div>
@@ -155,7 +155,7 @@ export default function CreateCollectionPage() {
       </div>
 
       {/* Form */}
-      <Card className="card-modern">
+      <Card className="bg-white border border-light-gray shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FolderPlus className="w-5 h-5 text-accent" />
@@ -175,7 +175,7 @@ export default function CreateCollectionPage() {
                 placeholder="Enter collection name..."
                 value={formData.name}
                 onChange={(e) => handleInputChange("name", e.target.value)}
-                className={`input-modern ${errors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                className={`w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-orange focus:border-orange ${errors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 disabled={isLoading}
               />
               {errors.name && (
@@ -196,7 +196,7 @@ export default function CreateCollectionPage() {
                 placeholder="Describe what this collection is about..."
                 value={formData.description}
                 onChange={(e) => handleInputChange("description", e.target.value)}
-                className={`input-modern resize-none ${errors.description ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                className={`w-full px-3 py-2 border border-light-gray rounded-md focus:outline-none focus:ring-2 focus:ring-orange focus:border-orange resize-none ${errors.description ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 rows={4}
                 disabled={isLoading}
               />
@@ -237,7 +237,7 @@ export default function CreateCollectionPage() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="btn-primary flex items-center gap-2 flex-1"
+                className="bg-orange hover:bg-orange/90 text-white font-semibold flex items-center gap-2 flex-1"
               >
                 {isLoading ? (
                   <>
@@ -267,7 +267,7 @@ export default function CreateCollectionPage() {
       </Card>
 
       {/* Help Text */}
-      <Card className="card-modern mt-6">
+      <Card className="bg-white border border-light-gray shadow-lg mt-6">
         <CardContent className="pt-6">
           <h3 className="font-semibold text-primary mb-2">About Collections</h3>
           <ul className="text-sm text-secondary space-y-1">
