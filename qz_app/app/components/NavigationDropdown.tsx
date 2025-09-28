@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, BookOpen, Plus, Upload, FolderOpen, Eye } from "lucide-react";
+import { ChevronDown, BookOpen, Plus, Upload, FolderOpen, Eye, LogOut } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function NavigationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
 
   const navigationItems = [
     {
@@ -34,6 +36,11 @@ export default function NavigationDropdown() {
       description: "Manage quizzes and collections"
     }
   ];
+
+  const handleSignOut = () => {
+    setIsOpen(false);
+    signOut();
+  };
 
   return (
     <div className="relative">
@@ -82,6 +89,28 @@ export default function NavigationDropdown() {
                     </div>
                   </Link>
                 ))}
+                
+                {/* Sign Out Button - Only show if user is logged in */}
+                {session && (
+                  <div className="border-t border-light-gray pt-3 mt-3">
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors group w-full text-left"
+                    >
+                      <div className="text-muted-foreground group-hover:text-red-600 transition-colors">
+                        <LogOut className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-dark-blue group-hover:text-red-600 transition-colors">
+                          Sign Out
+                        </div>
+                        <div className="text-sm text-muted-foreground mt-1">
+                          End your current session
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
