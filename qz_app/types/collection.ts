@@ -1,12 +1,17 @@
-import { Question } from "./question";
-
 export interface Collection {
   id: string;
-  topic: string;
-  questions: Question[];
+  name: string;
+  description?: string;
+  authorId: string;
+  quizIds: string[];
+  isPublic: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export interface DeleteCollectionRequest {
-  quizId: string;
-  questionIds: string[];
+export interface CollectionPage {
+  collections: Collection[];
+  total: number;
+  page: number;
+  pageSize: number;
 }

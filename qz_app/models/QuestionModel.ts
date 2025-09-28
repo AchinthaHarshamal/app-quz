@@ -7,6 +7,8 @@ interface IQuestion extends Document {
   correctAnswerID: string;
   answerDescription: string;
   answers: Answer[];
+  quizIds: string[]; // Required - question must belong to at least one quiz
+  authorId?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,6 +24,8 @@ const QuestionSchema: Schema = new Schema({
   correctAnswerID: { type: String, required: true },
   answerDescription: { type: String },
   answers: { type: [AnswerSchema], required: true, _id: false },
+  quizIds: { type: [String], required: true, validate: [(array: string[]) => array.length > 0, 'Question must belong to at least one quiz'] },
+  authorId: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

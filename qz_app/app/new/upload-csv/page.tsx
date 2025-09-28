@@ -2,20 +2,11 @@
 import uploadFile from "@/actions/uploadFile";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useQuestionStore, useQuizStore } from "../../store/useQuestionStore";
 import { useRouter } from "next/navigation";
 import { FileDown } from "lucide-react";
 
 export default function UploadCSV() {
   const [fileName, setFileName] = useState("");
-  const { setQuestions } = useQuestionStore((state) => ({
-    questions: state.questions,
-    setQuestions: state.setQuestions,
-  }));
-  const { setQuiz } = useQuizStore((state) => ({
-    quiz: state.quiz,
-    setQuiz: state.setQuiz,
-  }));
   const router = useRouter();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +22,9 @@ export default function UploadCSV() {
     if (result instanceof Error) {
       console.log(result.message);
     } else {
-      setQuestions(result.questions);
-      setQuiz({
-        id: result.id,
-        topic: result.topic,
-        questionIds: result.questions.map((q) => q.id),
-      });
-      console.log("File uploaded successfully");
+      // Handle Collection result - this needs to be updated to work with the new data model
+      console.log("Collection uploaded successfully:", result);
+      // For now, just redirect to create page
       router.push("/new/create");
     }
   };

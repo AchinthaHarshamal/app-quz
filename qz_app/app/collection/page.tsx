@@ -2,7 +2,6 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Collection } from "../../types/collection";
-import QuestionCard from "../components/QuestionCard";
 
 function QuizPageContent() {
   const [collection, setCollection] = useState<Collection | null>(null);
@@ -22,10 +21,12 @@ function QuizPageContent() {
   return (
     <div className="w-full relative  my-4 flex gap-2">
       <div className="flex flex-col w-full md:w-2/3 mx-auto">
-        <h1 className="text-2xl font-bold m-4">{collection?.topic}</h1>
+        <h1 className="text-2xl font-bold m-4">{collection?.name}</h1>
         <div className="flex flex-col mx-2 gap-2">
-          {collection?.questions.map((question) => (
-            <QuestionCard key={question.id} question={question} />
+          {collection?.quizIds.map((quizId) => (
+            <div key={quizId} className="p-4 border rounded-lg">
+              <p className="text-sm text-gray-600">Quiz ID: {quizId}</p>
+            </div>
           ))}
         </div>
       </div>

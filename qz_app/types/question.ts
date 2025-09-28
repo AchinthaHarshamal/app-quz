@@ -9,4 +9,8 @@ export interface Question {
   correctAnswerID: string;
   answerDescription?: string;
   answers: Answer[];
+  quizIds: string[]; // Required - question must belong to at least one quiz
+  authorId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

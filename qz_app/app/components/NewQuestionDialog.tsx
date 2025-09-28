@@ -41,6 +41,7 @@ const NewQuestionDialog: React.FC = () => {
         answers: newAnswers,
         answerDescription: newAnswerDescription,
         correctAnswerID: correctAnswerId,
+        quizIds: [], // Add empty array for quizIds
       });
       addQuestionId(newQuestionId);
 
